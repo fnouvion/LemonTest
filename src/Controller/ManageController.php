@@ -5,11 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Doctrine\Common\Persistence\ObjectManager;
+
+// Include GeoIp2 Classes
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
+
 
 use App\Entity\User;
 use App\Entity\Country;
@@ -24,6 +31,27 @@ class ManageController extends AbstractController
      */
     public function index(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
+        // Chemin vers le fichier de geolite
+      /*  $GeoLiteDatabasePath = $this->get('kernel')->getProjectDir() . '/../geoloc/GeoLite2-City.mmdb';
+        
+        $reader = new Reader($GeoLiteDatabasePath);        
+        try{
+            // Récupération de l'IP
+            $ip = $request->getClientIp();
+
+            // Minnesota grâce à l'IP
+            $location = $reader->city('128.101.101.101');
+            
+        } catch (AddressNotFoundException $ex) {
+            // Aucune adresse trouvée
+            return new Response("It wasn't possible to retrieve information about the providen IP");
+        }
+        
+        dump($location);*/
+        
+        
+        
+    
         $user = new User();
 
         $form = $this->createFormBuilder($user)
