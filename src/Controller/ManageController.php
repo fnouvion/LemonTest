@@ -22,7 +22,7 @@ class ManageController extends AbstractController
     /**
      * @Route("/create", name="user_create")
      */
-    public function index(Request $request, ObjectManager $manager)
+    public function index(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
         $user = new User();
 
@@ -55,7 +55,13 @@ class ManageController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            sendMail($user);
+            $message = (new \Swift_Message('Informations liée à l\'inscription'))
+                ->setFrom('francktestemail@gmail.com')
+                ->setTo('f_nouvion@orange.fr')
+                ->setBody("contenu");
+
+            $mailer->send($message);
+
         }
 
         return $this->render('manage/index.html.twig', [
@@ -65,24 +71,7 @@ class ManageController extends AbstractController
     }
 
 
-    function sendMail($user){
-        // Create the Transport
-        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 25))
-        ->setUsername('francktestemail@gmail.com')
-        ->setPassword('');
 
-        // Create the Mailer using your created Transport
-        $mailer = new Swift_Mailer($transport);
-
-        // Create a message
-        $message = (new Swift_Message('Informations de l\'utilisateur'))
-        ->setFrom(['john@doe.com' => 'John Doe'])
-        ->setTo(['receiver@domain.org', 'other@domain.org' => 'A name'])
-        ->setBody('Here is the message itself');
-
-        // Send the message
-        $result = $mailer->send($message);
-    }
 
     /**
      * @Route("/", name="home")
