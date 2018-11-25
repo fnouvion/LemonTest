@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -24,33 +25,28 @@ class ManageController extends AbstractController
     public function index(Request $request, ObjectManager $manager)
     {
         $user = new User();
-     /*   if($request->request->count() > 0){
-            $user = new User();
-            $user->setSurname($request->request->get('surname'))
-                 ->setName($request->request->get('name'))
-                 ->setBirthDate(\DateTime::createFromFormat('Y-m-d', $request->request->get('birthDate')))
-                 ->setEmail($request->request->get('email'));
-
-
-                 ->setGender($request->request->get('surname'))
-                 ->setCountry($request->request->get('surname'))
-                 ->setProfession($request->request->get('surname'));
-
-            $manager->persist($user);
-            $manager->flush();
-        }*/
 
         $form = $this->createFormBuilder($user)
                      ->add('surname')
                      ->add('name')
                      ->add('birthDate')
                      ->add('email')
-                     ->add('gender')
+                     ->add('gender', ChoiceType::class, array(
+                        'choices'  => array(
+                            'Femme' => 'Femme',
+                            'Homme' => 'Homme',
+                        ),
+                    ))               
                      ->add('country', EntityType::class, [
                          'class' => Country::class,
                          'choice_label' => 'nom_fr_fr'
                      ])
-                     ->add('profession')
+                     ->add('profession', ChoiceType::class, array(
+                        'choices'  => array(
+                            'Cadre' => 'Cadre',
+                            'Employé de la fonction publique' => 'Employé de la fonction publique',
+                        ),
+                    ))          
                      ->getForm();
 
         $form->handleRequest($request);
@@ -59,13 +55,33 @@ class ManageController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('/create');
+            sendMail($user);
         }
 
         return $this->render('manage/index.html.twig', [
             'controller_name' => 'ManageController',
             'formUser' => $form->createView()
         ]);
+    }
+
+
+    function sendMail($user){
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 25))
+        ->setUsername('francktestemail@gmail.com')
+        ->setPassword('');
+
+        // Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+
+        // Create a message
+        $message = (new Swift_Message('Informations de l\'utilisateur'))
+        ->setFrom(['john@doe.com' => 'John Doe'])
+        ->setTo(['receiver@domain.org', 'other@domain.org' => 'A name'])
+        ->setBody('Here is the message itself');
+
+        // Send the message
+        $result = $mailer->send($message);
     }
 
     /**
