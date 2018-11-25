@@ -55,13 +55,19 @@ class ManageController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
+            $mailContent = "Vos informations : \n";
+            $mailContent .= "Votre nom : " . $user->getSurname() . "\n";
+            $mailContent .= "Votre prénom : " . $user->getName() . "\n";
+            $mailContent .= "Votre date de naissance : Le " . $user->getBirthDate()->format('d/m/Y') . "\n";
+            $mailContent .= "Votre genre : " . $user->getGender() . "\n";
+            $mailContent .= "Votre pays : " . $user->getCountry()->getNomFrFr() . "\n";
+            $mailContent .= "Votre métier : " . $user->getProfession() . "\n";
             $message = (new \Swift_Message('Informations liée à l\'inscription'))
                 ->setFrom('francktestemail@gmail.com')
                 ->setTo('f_nouvion@orange.fr')
-                ->setBody("contenu");
-
+                ->setBody($mailContent);
+            
             $mailer->send($message);
-
         }
 
         return $this->render('manage/index.html.twig', [
