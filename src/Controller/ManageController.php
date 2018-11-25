@@ -59,7 +59,7 @@ class ManageController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('/create');
         }
 
         return $this->render('manage/index.html.twig', [
