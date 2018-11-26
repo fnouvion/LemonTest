@@ -3,11 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdminRepository")
+ * @UniqueEntity(
+ *  fields: {"email", "username"}
+ * )
  */
-class Admin
+class Admin implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -70,5 +76,13 @@ class Admin
         $this->password = $password;
 
         return $this;
+    }
+
+    public function eraseCredentials() {}
+
+    public function getSalt() {}
+
+    public function getRoles() {
+        return ['ROLE_ADMIN'];
     }
 }

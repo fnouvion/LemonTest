@@ -1,5 +1,18 @@
 easy_admin:
     site_name: "Page d'administration"
+    formats:
+        date:     'd/m/Y'
     entities:
         User:
             class: App\Entity\User
+            label: 'Utilisateurs'
+            list:
+                title: "Liste des utilisateurs"
+                fields:
+                    - { property: 'id', label: 'ID' }
+                    - { property: 'surname', label: 'Nom' }
+                    - { property: 'name', label: 'Prénom' }
+                    - { property: 'birthDate', label: 'Date de naissance' }
+                    - { property: 'email', label: 'Email' }
+                    - { property: 'gender', label: 'Genre' }
+                    - { property: 'profession', label: 'Profession' }

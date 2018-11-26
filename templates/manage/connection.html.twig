@@ -6,10 +6,19 @@
 {% block body %}    
 <h1>Formulaire de connexion</h1>
 
-    <form action="" method="POST">
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <button type="submit">Se connecter</button>
+    <form action="{{ path('connexion_admin') }}" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" 
+            required name="_username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Mot de passe" 
+            required name="_password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Se connecter</button>
+        </div>
     </form>
+
 
 {% endblock %}

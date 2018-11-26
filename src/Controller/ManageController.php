@@ -115,7 +115,7 @@ class ManageController extends AbstractController
     }
 
         /**
-     * @Route("/connexion", name="connexion")
+     * @Route("/connexion", name="connexion_admin")
      */
     public function connection(){
         return $this->render('manage/connection.html.twig');
