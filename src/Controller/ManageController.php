@@ -17,10 +17,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 
-
+use App\Entity\Admin;
 use App\Entity\User;
 use App\Entity\Country;
 use App\Repository\UserRepository;
+use App\Repository\AdminRepository;
+use App\Repository\CountryRepository;
 use App\Form\ArticleType;
 
 
@@ -50,8 +52,6 @@ class ManageController extends AbstractController
         dump($location);*/
         
         
-        
-    
         $user = new User();
 
         $form = $this->createFormBuilder($user)
