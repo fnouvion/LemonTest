@@ -4,7 +4,9 @@ easy_admin:
         assets:
             css:
                 - 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'
+                - '/public/bundles/easyadmin/stylesheet/easyadmin-all.min.css'
             js:
+                - '/public/bundles/easyadmin/stylesheet/easyadmin-all.min.js'
                 - 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'
     formats:
         date:     'd/m/Y'
@@ -21,7 +23,7 @@ easy_admin:
                     - { property: 'birthDate', label: 'Date de naissance' }
                     - { property: 'email', label: 'Email' }
                     - { property: 'gender', label: 'Genre' }
-                    - { property: 'country', type: 'entity', label: 'Pays' }
+                    - { property: 'country', type: 'relation', label: 'Pays' }
                     - { property: 'profession', label: 'Profession' }
             new:
                 title: 'Ajouter un nouvel utilisateur'

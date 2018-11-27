@@ -68,7 +68,7 @@ class ManageController extends AbstractController
             $mailContent .= "Votre métier : " . $user->getProfession() . "\n";
             $message = (new \Swift_Message('Informations liée à l\'inscription'))
                 ->setFrom('francktestemail@gmail.com')
-                ->setTo('f_nouvion@orange.fr')
+                ->setTo($user->getEmail())
                 ->setBody($mailContent);
             
             $mailer->send($message);
