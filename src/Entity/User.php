@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
@@ -48,7 +49,7 @@ class User
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="no")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $country;
@@ -146,4 +147,5 @@ class User
 
         return $this;
     }
+
 }

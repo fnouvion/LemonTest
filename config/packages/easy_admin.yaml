@@ -1,5 +1,11 @@
 easy_admin:
     site_name: "Page d'administration"
+    design:
+        assets:
+            css:
+                - '/public/bundles/easyadmin/stylesheet/easyadmin-all.min.css'
+            js:
+                - '/public/bundles/easyadmin/stylesheet/easyadmin-all.min.js'
     formats:
         date:     'd/m/Y'
     entities:
@@ -15,4 +21,28 @@ easy_admin:
                     - { property: 'birthDate', label: 'Date de naissance' }
                     - { property: 'email', label: 'Email' }
                     - { property: 'gender', label: 'Genre' }
+                    - { property: 'country', label: 'Pays' }
                     - { property: 'profession', label: 'Profession' }
+            new:
+                title: 'Ajouter un nouvel utilisateur'
+                fields:
+                    - { property: 'surname', label: 'Nom' }
+                    - { property: 'name', label: 'Prénom' }
+                    - { property: 'birthDate', label: 'Date de naissance', type: 'App\CustomType\MyCustomDateType' }
+                    - { property: 'email', label: 'Email' }
+                    - { property: 'gender', label: 'Genre', type: 'choice', type_options: {choices: {'Femme':'Femme', 'Homme':'Homme'}}}
+                    - { property: 'profession', label: 'Profession', type: 'choice', type_options: {choices: {'Cadre':'Cadre', 'Employé de la fonction publique':'Employé de la fonction publique'}}}
+
+            edit:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - { property: 'surname', label: 'Nom' }
+                    - { property: 'name', label: 'Prénom' }
+                    - { property: 'birthDate', label: 'Date de naissance', type: 'App\CustomType\MyCustomDateType' }
+                    - { property: 'email', label: 'Email' }
+                    - { property: 'gender', label: 'Genre', type: 'choice', type_options: {choices: {'Femme':'Femme', 'Homme':'Homme'}}}
+                    - { property: 'profession', label: 'Profession', type: 'choice', type_options: {choices: {'Cadre':'Cadre', 'Employé de la fonction publique':'Employé de la fonction publique'}}}
+
+
+
+                   

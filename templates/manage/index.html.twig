@@ -7,9 +7,28 @@
 
     {{ form_start(formUser) }}
 
-    {{ form_widget(formUser) }}
+    {{ form_label(formUser.surname, 'Nom') }} 
+    {{ form_widget(formUser.surname) }}
 
-        <button type="submit" class="btn btn-success">Enregistrer</button>
+    {{ form_label(formUser.name, 'Prénom') }} 
+    {{ form_widget(formUser.name) }}
+
+    {{ form_label(formUser.birthDate, 'Date de naissance') }} 
+    {{ form_widget(formUser.birthDate) }}
+
+    {{ form_label(formUser.email, 'Adresse mail') }} 
+    {{ form_widget(formUser.email) }}
+
+    {{ form_label(formUser.gender, 'Genre') }} 
+    {{ form_widget(formUser.gender) }}
+
+    {{ form_label(formUser.country, 'Pays') }} 
+    {{ form_widget(formUser.country) }}
+
+    {{ form_label(formUser.profession, 'Profession') }} 
+    {{ form_widget(formUser.profession) }}
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
     {{ form_end(formUser) }}
 
 {% endblock %}

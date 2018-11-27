@@ -7,9 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Form\UserType;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -17,13 +15,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 
-use App\Entity\Admin;
 use App\Entity\User;
 use App\Entity\Country;
-use App\Repository\UserRepository;
-use App\Repository\AdminRepository;
-use App\Repository\CountryRepository;
-use App\Form\ArticleType;
 
 
 class ManageController extends AbstractController
@@ -34,48 +27,31 @@ class ManageController extends AbstractController
     public function index(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
         // Chemin vers le fichier de geolite
-      /*  $GeoLiteDatabasePath = $this->get('kernel')->getProjectDir() . '/../geoloc/GeoLite2-City.mmdb';
+     //   $GeoLiteDatabasePath = $this->get('kernel')->getProjectDir() . '/../geoloc/GeoLite2-City.mmdb';
         
-        $reader = new Reader($GeoLiteDatabasePath);        
+    //    $reader = new Reader($GeoLiteDatabasePath);        
         try{
             // Récupération de l'IP
             $ip = $request->getClientIp();
 
             // Minnesota grâce à l'IP
-            $location = $reader->city('128.101.101.101');
+    //        $location = $reader->city('128.101.101.101');
             
         } catch (AddressNotFoundException $ex) {
             // Aucune adresse trouvée
             return new Response("It wasn't possible to retrieve information about the providen IP");
         }
         
-        dump($location);*/
+        dump($ip);
         
+        // get a GeoIP2 City model
+      /*  $record = $this->get('geoip2.reader')->city('128.101.101.101');
+
+        print($record->country->isoCode . "\n"); // 'US'
+        print($record->country->name . "\n"); // 'United States'*/
         
         $user = new User();
-
-        $form = $this->createFormBuilder($user)
-                     ->add('surname')
-                     ->add('name')
-                     ->add('birthDate')
-                     ->add('email')
-                     ->add('gender', ChoiceType::class, array(
-                        'choices'  => array(
-                            'Femme' => 'Femme',
-                            'Homme' => 'Homme',
-                        ),
-                    ))               
-                     ->add('country', EntityType::class, [
-                         'class' => Country::class,
-                         'choice_label' => 'nom_fr_fr'
-                     ])
-                     ->add('profession', ChoiceType::class, array(
-                        'choices'  => array(
-                            'Cadre' => 'Cadre',
-                            'Employé de la fonction publique' => 'Employé de la fonction publique',
-                        ),
-                    ))          
-                     ->getForm();
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 

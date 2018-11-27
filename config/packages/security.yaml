@@ -5,7 +5,7 @@ security:
         in_database:
             entity:
                 class: App\Entity\Admin
-                property: username
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

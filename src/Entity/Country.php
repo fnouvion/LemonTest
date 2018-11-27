@@ -48,11 +48,6 @@ class Country
      */
     private $users;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="country")
-     */
-    private $no;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -149,37 +144,6 @@ class Country
             // set the owning side to null (unless already changed)
             if ($user->getCountry() === $this) {
                 $user->setCountry(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getNo(): Collection
-    {
-        return $this->no;
-    }
-
-    public function addNo(User $no): self
-    {
-        if (!$this->no->contains($no)) {
-            $this->no[] = $no;
-            $no->setCountry($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNo(User $no): self
-    {
-        if ($this->no->contains($no)) {
-            $this->no->removeElement($no);
-            // set the owning side to null (unless already changed)
-            if ($no->getCountry() === $this) {
-                $no->setCountry(null);
             }
         }
 
