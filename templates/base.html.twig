@@ -15,11 +15,18 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/create">Inscription</a>
+                        <a class="nav-link" href="{{ path('user_create') }}">Inscription</a>
                     </li>
+
+                    {% if not app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/connexion">Connexion</a>
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

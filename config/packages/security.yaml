@@ -1,7 +1,12 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\Admin:
+            algorithm: bcrypt
+    
     providers:
         in_memory: { memory: ~ }
+        
         in_database:
             entity:
                 class: App\Entity\Admin
@@ -16,9 +21,15 @@ security:
             provider: in_database
 
             form_login:
-                login_path: connexion_admin
-                check_path: connexion_admin
+                login_path: app_login
+                check_path: app_login
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
+            logout:
+                path: security_logout
+                target: home
             # activate different ways to authenticate
 
             # http_basic: true
@@ -30,5 +41,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

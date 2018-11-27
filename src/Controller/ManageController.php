@@ -80,9 +80,6 @@ class ManageController extends AbstractController
         ]);
     }
 
-
-
-
     /**
      * @Route("/", name="home")
      */
@@ -90,10 +87,4 @@ class ManageController extends AbstractController
         return $this->render('manage/home.html.twig');
     }
 
-        /**
-     * @Route("/connexion", name="connexion_admin")
-     */
-    public function connection(){
-        return $this->render('manage/connection.html.twig');
-    }
 }
