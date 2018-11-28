@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,36 +19,22 @@ use App\Entity\User;
 use App\Entity\Country;
 
 
-class ManageController extends AbstractController
+class ManageController extends Controller
 {
     /**
      * @Route("/create", name="user_create")
      */
     public function index(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
-        // Chemin vers le fichier de geolite
-     //   $GeoLiteDatabasePath = $this->get('kernel')->getProjectDir() . '/../geoloc/GeoLite2-City.mmdb';
-        
-    //    $reader = new Reader($GeoLiteDatabasePath);        
-        try{
-            // Récupération de l'IP
-            $ip = $request->getClientIp();
-
-            // Minnesota grâce à l'IP
-    //        $location = $reader->city('128.101.101.101');
-            
-        } catch (AddressNotFoundException $ex) {
-            // Aucune adresse trouvée
-            return new Response("It wasn't possible to retrieve information about the providen IP");
-        }
-        
+        // Récupération de l'IP
+        $ip = $request->getClientIp();     
         dump($ip);
         
         // get a GeoIP2 City model
-      /*  $record = $this->get('geoip2.reader')->city('128.101.101.101');
+        $record = $this->get('geoip2.reader')->city('128.101.101.101');
 
         print($record->country->isoCode . "\n"); // 'US'
-        print($record->country->name . "\n"); // 'United States'*/
+        print($record->country->name . "\n"); // 'United States'
         
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
