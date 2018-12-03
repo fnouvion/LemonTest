@@ -33,7 +33,8 @@ class ManageController extends Controller
         // get a GeoIP2 City model
         //Exemple IPv4 FR : 5.49.49.225
         $record = $this->get('geoip2.reader')->city('5.49.49.225');
-        dump($record->country->name);
+        $pays = $record->country->name;
+        dump($pays);
         
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -61,7 +62,8 @@ class ManageController extends Controller
 
         return $this->render('manage/index.html.twig', [
             'controller_name' => 'ManageController',
-            'formUser' => $form->createView()
+            'formUser' => $form->createView(),
+            'pays' => $pays
         ]);
     }
 

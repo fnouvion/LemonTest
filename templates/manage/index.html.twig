@@ -3,7 +3,7 @@
 {% block title %}Formulaire d'inscription{% endblock %}
 
 {% block body %}
-    <h1>Formulaire d'inscription</h1>
+    <h1 id="test">Formulaire d'inscription</h1>
 
     {{ form_start(formUser) }}
 
@@ -31,4 +31,17 @@
     <button type="submit" class="btn btn-success">Enregistrer</button>
     {{ form_end(formUser) }}
 
+<script>
+var selectedCountry = "{{pays}}";
+alert(selectedCountry);
+var select = document.getElementById("user_country");
+for (var i = 0; i < select.options.length; i++) {
+    if (select.options[i].text === selectedCountry) {
+        select.selectedIndex = i;
+        break;
+    }
+}
+alert(select);
+
+</script>
 {% endblock %}
