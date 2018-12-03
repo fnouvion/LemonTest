@@ -149,4 +149,8 @@ class Country
 
         return $this;
     }
+
+    public function __toString(){
+        return $this->nom_fr_fr;
+    }
 }

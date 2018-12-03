@@ -31,10 +31,9 @@ class ManageController extends Controller
         dump($ip);
         
         // get a GeoIP2 City model
-        $record = $this->get('geoip2.reader')->city('128.101.101.101');
-
-        print($record->country->isoCode . "\n"); // 'US'
-        print($record->country->name . "\n"); // 'United States'
+        //Exemple IPv4 FR : 5.49.49.225
+        $record = $this->get('geoip2.reader')->city('5.49.49.225');
+        dump($record->country->name);
         
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
