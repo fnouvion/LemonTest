@@ -58,6 +58,7 @@ class ManageController extends Controller
                 ->setBody($mailContent);
             
             $mailer->send($message);
+            return $this->render('manage/ajout.html.twig');
         }
 
         return $this->render('manage/index.html.twig', [
@@ -74,4 +75,10 @@ class ManageController extends Controller
         return $this->render('manage/home.html.twig');
     }
 
+    /**
+     * @Route("/confirmedAction", name="registered")
+     */
+    public function confirmedAction(){
+        return $this->render('manage/ajout.html.twig');
+    }
 }
